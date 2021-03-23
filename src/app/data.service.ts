@@ -1,7 +1,7 @@
-import { environment } from './../environments/environment.prod';
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient } from "@angular/common/http";
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -13,15 +13,13 @@ export class DataService {
 
   public getContacts(): Observable<any> {
     return this.http.get(`${environment.url}/contact`);
-
   }
 
-  public deletaContacts(id): Observable<any> {
+  public deleteContacts(id: any): Observable<any> {
     return this.http.delete(`${environment.url}/contact/${id}`);
-
   }
 
-  public createContact(contact: { id: any; name: any; description: any; email: any; }): Observable<any> {
+  public saveContact(contact: { id: any; name: any; description: any; email: any; }): Observable<any> {
     return this.http.post(`${environment.url}/contact`, contact);
   }
 

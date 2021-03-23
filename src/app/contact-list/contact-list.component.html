@@ -8,30 +8,43 @@
         <th>Ações</th>
       </tr>
     </thead>
-    <tbody>
-      <tr *ngFor="let contact of contacts">
-
-        <td>{{ contact.id }}</td>
-        <td> {{ contact.name }}</td>
-        <td> {{ contact.email }}</td>
+    <tr *ngFor="let c of contacts">
+        <td>{{c.id}}</td>
+        <td>{{c.name}}</td>
+        <td>{{c.email}}</td>
         <td>
-          <button class="btn btn-primary" (click)="selectContact(contact)"> Mostrar detalhes</button>
-          <button class="btn btn-primary" style="margin:1%;" (click)="selectContact(contact)"> Deletar</button>
+          <button class="btn btn-primary" (click)="selectContact(c)"> Mostrar detalhes</button>
+          <button class="btn btn-primary" style="margin: 1%;" (click)="deleteContact(c)"> Excluir</button>
         </td>
-      </tr>
+    </tr>
+    <tbody>
     </tbody>
   </table>
+
   <div class="card text-center" *ngIf="selectedContact">
       <div class="card-header">
         # {{selectedContact.id}}
+        <button *ngIf="!edicao" class="btn btn-primary" (click)="editar()"> Editar</button>
       </div>
       <div class="card-block">
-        <h4 class="card-title">{{selectedContact.name}}</h4>
-        <p class="card-text">
+        <h4 *ngIf="!edicao" class="card-title">{{selectedContact.name}}</h4>
+        <div *ngIf="edicao" >
+          <label for="name">Nome do contato</label>
+          <input [(ngModel)]="selectedContact.name" type="text" name="name" class="form-control" id="name" aria-describedby="nameHelp" placeholder="Digite o nome">
+        </div>
+
+        <div *ngIf="edicao" >
+          <label for="description">Descrição do contato</label>
+          <textarea [(ngModel)]="selectedContact.description" name="description" class="form-control" id="description" aria-describedby="descHelp"></textarea>
+        </div>
+
+        <p *ngIf="!edicao" class="card-text">
           {{selectedContact.description}}
         </p>
+        <button *ngIf="edicao" class="btn btn-primary" (click)="salvar()"> Salvar</button>
+        <button *ngIf="edicao" class="btn btn-primary" style="margin: 1%;" (click)="cancelar()">Cancelar</button>
       </div>
 
     </div>
-</div>
 
+</div>
