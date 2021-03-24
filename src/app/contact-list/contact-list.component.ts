@@ -8,8 +8,8 @@ import { DataService } from '../data.service';
 })
 export class ContactListComponent implements OnInit {
 
-  contacts:any;
-  selectedContact:any;
+  contacts: { id: any; name: any; description: any; email: any; }[] | undefined;
+  selectedContact: any
   edicao = false;
 
   constructor(public dataService: DataService) { }
@@ -18,7 +18,7 @@ export class ContactListComponent implements OnInit {
     this.listar();
   }
 
-  public listar(){
+  public listar() {
     this.dataService.getContacts().subscribe(resposta => {
       this.contacts = resposta;
     });
@@ -28,25 +28,37 @@ export class ContactListComponent implements OnInit {
     this.selectedContact = contact;
   }
 
-  public deleteContact(contact: any) {
-    this.dataService.deleteContacts(contact.id).subscribe(r => {
-      this.listar();
-    });
+  public deleteContact(contact: { id: any; }) {
+
+    var excluir = confirm("Deseja realmente excluir este registro ?")
+
+    if (excluir == true) {
+      this.dataService.deleteContacts(contact.id).subscribe(r => {});
+
+    } else {
+
+      alert("Operação cancelada")
+
+    }
+
+    return this.listar();
+
   }
 
-  public editar(){
+  public editar() {
     this.edicao = true;
   }
 
-  public cancelar(){
+  public cancelar() {
     this.edicao = false;
   }
 
-  public salvar(){
+  public salvar() {
     this.dataService.saveContact(this.selectedContact).subscribe(r => {
       this.edicao = false;
       this.listar();
     });
   }
+
 
 }
