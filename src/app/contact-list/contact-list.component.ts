@@ -11,6 +11,7 @@ export class ContactListComponent implements OnInit {
   contacts: { id: any; name: any; description: any; email: any; }[] | undefined;
   selectedContact: any
   edicao = false;
+  excluirRef: any;
 
   constructor(public dataService: DataService) { }
 
@@ -33,15 +34,10 @@ export class ContactListComponent implements OnInit {
     var excluir = confirm("Deseja realmente excluir este registro ?")
 
     if (excluir == true) {
-      this.dataService.deleteContacts(contact.id).subscribe(r => {});
-
-    } else {
-
-      alert("Operação cancelada")
+      this.dataService.deleteContacts(contact.id).subscribe(r => { });
+      return this.listar();
 
     }
-
-    return this.listar();
 
   }
 
@@ -59,6 +55,4 @@ export class ContactListComponent implements OnInit {
       this.listar();
     });
   }
-
-
 }
