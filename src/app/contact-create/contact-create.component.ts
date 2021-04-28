@@ -22,6 +22,10 @@ export class ContactCreateComponent implements OnInit {
     });
   }
 
+  selecionarFoto(evento){
+    console.log(evento)
+  }
+
 }
 
 

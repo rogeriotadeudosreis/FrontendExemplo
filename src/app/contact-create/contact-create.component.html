@@ -19,7 +19,9 @@
             <textarea [(ngModel)]="contact.description" name="description" class="form-control" id="description"
               aria-describedby="descHelp">
                       </textarea>
-            <small id="descHelp" class="form-text text-muted">Digite uma descrição para do contato</small>
+                      <small id="descHelp" class="form-text text-muted">Digite uma descrição para do contato</small>
+                      <input type="File" class="file upload" onchange="console.log(event.target.files)">
+
           </div>
         </form>
         <button class="btn btn-primary" (click)="createContact()">Adicionar</button>
